@@ -10,4 +10,5 @@ public class Main {
             MergeSort.sorting(0, true, args);
         }
     }
+
 }

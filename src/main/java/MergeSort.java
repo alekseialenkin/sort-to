@@ -56,21 +56,13 @@ public class MergeSort {
 
     public static void sorting(int number, boolean mode, String[] args) {
         try (FileWriter fileW = new FileWriter(args[number + 1])) {
-            List<List<String>> list = new ArrayList<>();
+            List<List<String>> listWithNumbersLists = new ArrayList<>();
             for (int i = number + 2; i < args.length; i++) {
-                FileReader fileR = new FileReader(args[i]);
-                Scanner scanner = new Scanner(fileR);
-                List<String> list1 = new ArrayList<>();
-                while (scanner.hasNextLine()) {
-                    list1.add(scanner.nextLine());
-                }
-                list.add(list1);
-                fileR.close();
-                scanner.close();
+                listWithNumbersLists.add(getListFromFile(args[i]));
             }
-            if (args[number].equals("-i")) {
+            if (Arrays.asList(args).contains("-i")) {
                 List<Integer> resultList = new ArrayList<>();
-                for (List<String> strings : list) {
+                for (List<String> strings : listWithNumbersLists) {
                     for (String string : strings) {
                         resultList.add(Integer.parseInt(string));
                     }
@@ -85,7 +77,7 @@ public class MergeSort {
                 }
             } else {
                 List<String> resultList = new ArrayList<>();
-                for (List<String> strings : list) {
+                for (List<String> strings : listWithNumbersLists) {
                     resultList.addAll(strings);
                 }
                 String[] str = new String[resultList.size()];
@@ -100,5 +92,17 @@ public class MergeSort {
         } catch (Exception e) {
             throw new RuntimeException("Wrong parameters");
         }
+    }
+
+    public static List<String> getListFromFile(String fileName) {
+        List<String> list1 = new ArrayList<>();
+        try (FileReader fileR = new FileReader(fileName); Scanner scanner = new Scanner(fileR)) {
+            while (scanner.hasNextLine()) {
+                list1.add(scanner.nextLine());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Wrong parameters");
+        }
+        return list1;
     }
 }

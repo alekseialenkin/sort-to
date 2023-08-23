@@ -1,3 +1,4 @@
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -5,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
-    public static <T extends Comparable<T>> T[] mergeSort(T[] array, boolean sortMode) {
+public class MergeSort {
+    private static <T extends Comparable<T>> T[] mergeSort(T[] array, boolean sortMode) {
         T[] currentSrc = Arrays.copyOf(array, array.length);
         T[] currentDest = Arrays.copyOf(array, array.length);
 
@@ -53,7 +54,7 @@ public class Main {
         }
     }
 
-    private static void sorting(int number, boolean mode, String[] args) {
+    public static void sorting(int number, boolean mode, String[] args) {
         try (FileWriter fileW = new FileWriter(args[number + 1])) {
             List<List<String>> list = new ArrayList<>();
             for (int i = number + 2; i < args.length; i++) {
@@ -98,14 +99,6 @@ public class Main {
             }
         } catch (Exception e) {
             throw new RuntimeException("Wrong parameters");
-        }
-    }
-
-    public static void main(String[] args) {
-        if (Arrays.asList(args).contains("-a") || Arrays.asList(args).contains("-d")) {
-            sorting(1, Arrays.asList(args).contains("-a"), args);
-        } else {
-            sorting(0, true, args);
         }
     }
 }
